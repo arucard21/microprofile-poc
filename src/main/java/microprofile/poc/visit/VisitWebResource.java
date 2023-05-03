@@ -1,6 +1,7 @@
 package microprofile.poc.visit;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -20,7 +21,16 @@ import jakarta.ws.rs.core.MediaType;
 @ApplicationScoped
 @OpenAPIDefinition(info = @Info(title = "Visit endpoint", version = "1.0"))
 public class VisitWebResource {
-	Map<Long, Visit> visits;
+	Map<Long, Visit> visits = new HashMap<>();
+
+	public VisitWebResource() {
+		for(int i = 0; i < 3; i++) {
+			Visit visit = new Visit();
+			visit.setAmountOfVisitors(2);
+			visit.setReason("some reason");
+			visits.put(Long.valueOf(i), visit);
+		}
+	}
 
 	/**
 	 * TODO use MP Config variables
@@ -34,4 +44,6 @@ public class VisitWebResource {
 	public Collection<Visit> getVisits(){
 		return visits.values();
 	}
+
+
 }

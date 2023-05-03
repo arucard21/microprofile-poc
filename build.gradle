@@ -1,5 +1,6 @@
 plugins {
-    id 'war'
+    id "war"
+    id "eclipse-wtp"
 }
 
 repositories {
@@ -11,7 +12,7 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 dependencies {
-    implementation group: 'org.eclipse.microprofile', name: 'microprofile', version: '5.0'
+    providedCompile group: "org.eclipse.microprofile", name: "microprofile", version: "5.0"
 }
 
 testing {
@@ -19,7 +20,11 @@ testing {
         // Configure the built-in test suite
         test {
             // Use JUnit Jupiter test framework
-            useJUnitJupiter('5.9.1')
+            useJUnitJupiter("5.9.1")
         }
     }
 }
+
+eclipse.wtp.facet { facet name: 'jst.web', version: '5.0' }
+
+war.archiveBaseName = "ROOT"
