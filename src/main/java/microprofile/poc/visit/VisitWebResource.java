@@ -4,8 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.microprofile.faulttolerance.Fallback;
-import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -37,13 +36,10 @@ public class VisitWebResource {
 	 */
 
 	@APIResponses(value = { @APIResponse(responseCode = "200", description = "Retrieve a list of all visits") })
-	@Fallback // better use FallbackHandler
-	@Timeout(500)
+	@Timed
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Visit> getVisits(){
 		return visits.values();
 	}
-
-
 }
