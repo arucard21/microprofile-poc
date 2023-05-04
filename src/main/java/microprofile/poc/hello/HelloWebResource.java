@@ -7,6 +7,7 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -61,5 +62,13 @@ public class HelloWebResource {
 	public String randomJoke() {
 		Joke randomJoke = randomJokeClient.getRandomJoke();
 		return randomJoke.setup() + "\n" + randomJoke.punchline();
+	}
+
+	@GET
+	@Path("authenticated")
+	@Produces(MediaType.TEXT_PLAIN)
+	@RolesAllowed("admin")
+	public String requireAuthentication() {
+		return "This is a secure message that requires authentication.";
 	}
 }
