@@ -50,8 +50,7 @@ This API request returns a property defined in the `microprofile-config.properti
 TODO
 
 ### OpenTracing 3.0
-TODO
-This has been replaced with Telemetry 1.0 in the Microprofile 6.0.
+This has been replaced with Open Telemetry 1.0 in Microprofile 6.0. These specifications are not compatible and no migration path has been defined for them. So it doesn't make sense to try to get OpenTracing working when it is already deprecated in favor of Open Telemetry. Open Telemetry should also work automatically with JAX-RS so no configuration should be needed, aside from possibly enabling it.
 
 ### Rest Client 3.0
 TODO
