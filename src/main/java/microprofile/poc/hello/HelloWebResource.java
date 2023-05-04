@@ -13,6 +13,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import microprofile.poc.joke.Joke;
+import microprofile.poc.joke.RandomJokeClient;
 
 @Path("/hello")
 @Timed
@@ -20,8 +22,11 @@ import jakarta.ws.rs.core.MediaType;
 @OpenAPIDefinition(info = @Info(title = "Hello World endpoint", version = "1.0"))
 public class HelloWebResource {
 	@Inject
-	@ConfigProperty(name="injected.value")
-	private String injectedConfigurationProperty;
+	@ConfigProperty(name = "injected.value")
+	String injectedConfigurationProperty;
+
+	@Inject
+	RandomJokeClient randomJokeClient;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -48,5 +53,13 @@ public class HelloWebResource {
     @Produces(MediaType.TEXT_PLAIN)
 	public String injectedConfigurationProperty() {
 		return injectedConfigurationProperty;
+	}
+
+	@GET
+	@Path("random-joke")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String randomJoke() {
+		Joke randomJoke = randomJokeClient.getRandomJoke();
+		return randomJoke.setup() + "\n" + randomJoke.punchline();
 	}
 }

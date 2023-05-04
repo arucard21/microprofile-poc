@@ -53,4 +53,5 @@ TODO
 This has been replaced with Open Telemetry 1.0 in Microprofile 6.0. These specifications are not compatible and no migration path has been defined for them. So it doesn't make sense to try to get OpenTracing working when it is already deprecated in favor of Open Telemetry. Open Telemetry should also work automatically with JAX-RS so no configuration should be needed, aside from possibly enabling it.
 
 ### Rest Client 3.0
-TODO
+http://localhost:8080/hello/random-joke
+This API request uses a client to access the random joke API at https://official-joke-api.appspot.com/random_joke and returns the setup and punchline of the joke.
