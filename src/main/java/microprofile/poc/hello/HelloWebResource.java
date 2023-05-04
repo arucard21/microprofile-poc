@@ -7,7 +7,7 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -15,7 +15,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/hello")
-@ApplicationScoped // FIXME Why is this needed to make the fallback mechanism work correctly?
+@Timed
+@RequestScoped
 @OpenAPIDefinition(info = @Info(title = "Hello World endpoint", version = "1.0"))
 public class HelloWebResource {
 	@Inject
@@ -28,9 +29,8 @@ public class HelloWebResource {
         return "Hello World";
     }
 
-    @Timed
+    @Timeout(500)
     @Fallback(HelloFallbackHandler.class)
-	@Timeout(500)
 	@Path("timeout")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -43,7 +43,7 @@ public class HelloWebResource {
 		return "Did not trigger fallback";
 	}
 
-    @GET
+	@GET
 	@Path("config-property")
     @Produces(MediaType.TEXT_PLAIN)
 	public String injectedConfigurationProperty() {
