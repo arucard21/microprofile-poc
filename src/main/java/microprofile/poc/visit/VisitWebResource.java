@@ -24,16 +24,10 @@ public class VisitWebResource {
 
 	public VisitWebResource() {
 		for(int i = 0; i < 3; i++) {
-			Visit visit = new Visit();
-			visit.setAmountOfVisitors(2);
-			visit.setReason("some reason");
+			Visit visit = new Visit("some reason", 2, null, null, null, null);
 			visits.put(Long.valueOf(i), visit);
 		}
 	}
-
-	/**
-	 * TODO use MP Config variables
-	 */
 
 	@APIResponses(value = { @APIResponse(responseCode = "200", description = "Retrieve a list of all visits") })
 	@Timed

@@ -9,55 +9,19 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import jakarta.ws.rs.core.MediaType;
 
 @Schema(name="Visit")
-public class Visit {
+public record Visit (
+		@Schema(required = false, description = "The reason for this visit")
+		String reason,
+		@Schema(required = false, description = "The amount of visitors for this visit, which may exceed the amount of visitors registered for this visit to allow for unregistered visitors.")
+		int amountOfVisitors,
+		@Schema(required = false, description = "The date and time at which this visit was canceled, if it was indeed canceled.")
+		ZonedDateTime cancelationDate,
+		@Schema(required = false, description = "The visitors that are registered for this visit.")
+		List<Visitor> visitors,
+		@Schema(required = false, description = "The people that are hosting this visit.")
+		List<URI> host,
+		@Schema(required = false, description = "The parking locations assigned to this visit")
+		List<URI> assigned) {
 	public static final String MEDIATYPE_STRING = "application/x.visit-v1+json";
 	public static final MediaType MEDIATYPE = MediaType.valueOf(MEDIATYPE_STRING);
-
-	@Schema(required = false, description = "Reason for visit")
-	private String reason;
-	/**
-	 * This amountOfVisitors may exceed the size of the list of the "visitors" field to allow for unregistered visitors.
-	 */
-	private int amountOfVisitors;
-	private ZonedDateTime cancelationDate;
-	private List<Visitor> visitors;
-	private List<URI> host; // person
-	private List<URI> assigned; // parking location
-
-	public String getReason() {
-		return reason;
-	}
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-	public int getAmountOfVisitors() {
-		return amountOfVisitors;
-	}
-	public void setAmountOfVisitors(int amountOfVisitors) {
-		this.amountOfVisitors = amountOfVisitors;
-	}
-	public ZonedDateTime getCancelationDate() {
-		return cancelationDate;
-	}
-	public void setCancelationDate(ZonedDateTime cancelationDate) {
-		this.cancelationDate = cancelationDate;
-	}
-	public List<Visitor> getVisitors() {
-		return visitors;
-	}
-	public void setVisitors(List<Visitor> visitors) {
-		this.visitors = visitors;
-	}
-	public List<URI> getHost() {
-		return host;
-	}
-	public void setHost(List<URI> host) {
-		this.host = host;
-	}
-	public List<URI> getAssigned() {
-		return assigned;
-	}
-	public void setAssigned(List<URI> assigned) {
-		this.assigned = assigned;
-	}
 }
