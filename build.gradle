@@ -12,8 +12,8 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 dependencies {
-	providedCompile platform(group: 'jakarta.platform', name: 'jakarta.jakartaee-bom', version: '9.0.0')
-    providedCompile platform(group: "org.eclipse.microprofile", name: "microprofile", version: "5.0")
+	providedCompile platform(group: 'jakarta.platform', name: 'jakarta.jakartaee-bom', version: '10.0.0')
+    providedCompile platform(group: "org.eclipse.microprofile", name: "microprofile", version: "6.0")
     providedCompile group: "org.eclipse.microprofile", name: "microprofile"
     providedCompile group: 'jakarta.persistence', name: 'jakarta.persistence-api'
     providedCompile group: 'jakarta.transaction', name: 'jakarta.transaction-api'
@@ -41,4 +41,4 @@ testing.suites {
     }
 }
 
-eclipse.wtp.facet { facet name: 'jst.web', version: '5.0' }
+eclipse.wtp.facet { facet name: 'jst.web', version: '6.0' }
