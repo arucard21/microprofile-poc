@@ -12,8 +12,13 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 dependencies {
-    providedCompile group: "org.eclipse.microprofile", name: "microprofile", version: "5.0"
-    implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.1.0'
+	providedCompile platform(group: 'jakarta.platform', name: 'jakarta.jakartaee-bom', version: '9.0.0')
+    providedCompile platform(group: "org.eclipse.microprofile", name: "microprofile", version: "5.0")
+    
+    providedCompile group: "org.eclipse.microprofile", name: "microprofile"
+    providedCompile group: 'jakarta.persistence', name: 'jakarta.persistence-api'
+    providedCompile group: 'jakarta.transaction', name: 'jakarta.transaction-api'
+	
 	runtimeOnly group: 'com.h2database', name: 'h2', version: '2.1.212'
 }
 

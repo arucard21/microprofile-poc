@@ -22,6 +22,8 @@ public class VisitEntity {
 //	private List<URI> host;
 //	private List<URI> assigned;
 
+	public VisitEntity() {}
+
 	public VisitEntity(Long id, String reason, int amountOfVisitors, ZonedDateTime cancelationDate,
 			List<Visitor> visitors, List<URI> host, List<URI> assigned) {
 		this.id = id;
