@@ -66,3 +66,17 @@ You can also [modify this JWT token](https://jwt.io/#debugger-io?token=eyJhbGciO
 
 ### OpenTracing 3.0
 This has been replaced with Open Telemetry 1.0 in Microprofile 6.0. These specifications are not compatible and no migration path has been defined for them. So it doesn't make sense to try to get OpenTracing working when it is already deprecated in favor of Open Telemetry. Open Telemetry should also work automatically with JAX-RS so no configuration should be needed, aside from possibly enabling it.
+
+## Deployment
+
+The REST API is packaged as a WAR file with Gradle and can be deployed as a Docker image. A `docker-compose.yml` file is provided to automatically build the Docker image, as defined in `Dockerfile`, then start the server with the REST API.
+
+You can start the server with these commands.
+
+```shell
+./gradlew build
+docker-compose up -d --build
+```
+
+If you want to build the Docker image before starting the server, you can do so with `docker-compose build`
+You can also use `Dockerfile` to build an image directly with `docker build .`. You should then also tag it as needed with the `-t` parameter. 
