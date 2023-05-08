@@ -9,7 +9,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import jakarta.ws.rs.core.MediaType;
 
 @Schema(name="Visit")
-public record Visit (
+public record Visit(
+		@Schema(required = false, description = "The self-link to this visit")
+		URI self,
 		@Schema(required = false, description = "The reason for this visit")
 		String reason,
 		@Schema(required = false, description = "The amount of visitors for this visit, which may exceed the amount of visitors registered for this visit to allow for unregistered visitors.")

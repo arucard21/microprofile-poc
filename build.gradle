@@ -18,6 +18,8 @@ dependencies {
     providedCompile group: "org.eclipse.microprofile", name: "microprofile"
     providedCompile group: 'jakarta.persistence', name: 'jakarta.persistence-api'
     providedCompile group: 'jakarta.transaction', name: 'jakarta.transaction-api'
+    
+    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '3.0.5'
 	
 	runtimeOnly group: 'com.h2database', name: 'h2', version: '2.1.212'
 }
