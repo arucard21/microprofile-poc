@@ -36,5 +36,3 @@ testing {
 }
 
 eclipse.wtp.facet { facet name: 'jst.web', version: '5.0' }
-
-war.archiveBaseName = "ROOT"
