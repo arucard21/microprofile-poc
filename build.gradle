@@ -1,10 +1,10 @@
 plugins {
-    id "war"
-    id "eclipse-wtp"
+    id 'war'
+    id 'eclipse-wtp'
+    id 'jvm-test-suite'
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
@@ -14,24 +14,30 @@ targetCompatibility = JavaVersion.VERSION_17
 dependencies {
 	providedCompile platform(group: 'jakarta.platform', name: 'jakarta.jakartaee-bom', version: '9.0.0')
     providedCompile platform(group: "org.eclipse.microprofile", name: "microprofile", version: "5.0")
-    implementation platform(group: 'org.springframework.data', name: 'spring-data-bom', version: '2023.0.0')
-    
     providedCompile group: "org.eclipse.microprofile", name: "microprofile"
     providedCompile group: 'jakarta.persistence', name: 'jakarta.persistence-api'
     providedCompile group: 'jakarta.transaction', name: 'jakarta.transaction-api'
     
+    implementation platform(group: 'org.springframework.data', name: 'spring-data-bom', version: '2023.0.0')
     implementation group: 'org.springframework.data', name: 'spring-data-jpa'
 	
 	runtimeOnly group: 'com.h2database', name: 'h2', version: '2.1.212'
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter("5.9.1")
-        }
+testing.suites {
+    test {
+        useJUnitJupiter('5.9.3')
+    }
+    apiTest(JvmTestSuite) {
+    	dependencies {
+    		implementation project()
+    		implementation 'org.jboss.arquillian.junit5:arquillian-junit5-container:1.7.0.Final'
+    		runtimeOnly 'org.apache.tomee:arquillian-tomee-remote:9.0.0'
+    		runtimeOnly 'org.apache.tomee:apache-tomee:9.0.0'
+    	}
+		configurations.apiTestImplementation {
+			extendsFrom configurations.testImplementation
+		}
     }
 }
 
