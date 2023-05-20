@@ -28,14 +28,24 @@ testing.suites {
     test {
         useJUnitJupiter('5.9.3')
     }
-    apiTest(JvmTestSuite) {
+    integrationTest(JvmTestSuite) {
+    	targets {
+            all {
+                testTask.configure { 
+                	// configure server used for integration tests
+			    	systemProperty "tomee.classifier", "plus"
+			    	systemProperty "tomee.properties", "tomee.mp.scan=all"
+                }
+            }
+        }
+    	
     	dependencies {
     		implementation project()
     		implementation 'org.jboss.arquillian.junit5:arquillian-junit5-container:1.7.0.Final'
     		runtimeOnly 'org.apache.tomee:arquillian-tomee-remote:9.0.0'
     		runtimeOnly 'org.apache.tomee:apache-tomee:9.0.0'
     	}
-		configurations.apiTestImplementation {
+		configurations.integrationTestImplementation {
 			extendsFrom configurations.testImplementation
 		}
     }

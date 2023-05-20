@@ -2,7 +2,7 @@
 
 This is a proof-of-concept implementation of a REST API using the Microprofile specifications.
 
-This is tested using a TomEE 9.x server, which contains Tomcat 10.x and supports Jakarta EE 9.1 and Microprofile 5.0.
+This is tested using an Apache TomEE 9.x server, which contains Apache Tomcat 10.x and supports Jakarta EE 9.1 and Microprofile 5.0.
 
 ## Requirements
 You must add the `tomee.mp.scan = all` property to TomEE's system.properties file to ensure that it scans for all Microprofile libraries.
@@ -80,3 +80,18 @@ docker-compose up -d --build
 
 If you want to build the Docker image before starting the server, you can do so with `docker-compose build`
 You can also use `Dockerfile` to build an image directly with `docker build .`. You should then also tag it as needed with the `-t` parameter. 
+
+## Automated tests
+
+You can run the unit test with the standard `./gradlew test` command. The main portion of automated testing is done through the integration tests which can be run with `./gradlew integrationTest`.
+
+The integration tests download, install and configure the Apache TomEE server, install the API on it, and run the tests against the API running on that server. 
+
+To run the integration tests in the IDE, you need to ensure that the following JVM arguments are specified:
+
+```
+-Dtomee.classifier=plus
+-Dtomee.properties="tomee.mp.scan=all"
+```
+
+These JVM arguments configure the server against which the automated tests run. The classifier ensures that the "plus" version of  TomEE is used, which supports the Microprofile standards as well as all Jakarta EE standards. The second argument adds a property to the server that enables all Microprofile implementations, without which the API will not start on the server.

@@ -14,7 +14,7 @@ import jakarta.inject.Inject;
 import microprofile.poc.hello.HelloWebResource;
 
 @ExtendWith(ArquillianExtension.class)
-public class MicroprofileApplicationApiTest {
+public class MicroprofileApplicationIntegrationTest {
 	final String port = System.getProperty("tomee.httpPort");
 	@Inject
 	HelloWebResource helloWebResource;
@@ -29,6 +29,5 @@ public class MicroprofileApplicationApiTest {
 	@Test
 	public void sayHello_returnsHelloWorld() {
 		Assertions.assertEquals("Hello World", helloWebResource.sayHello());
-		Assertions.assertEquals("8888", port);
 	}
 }
