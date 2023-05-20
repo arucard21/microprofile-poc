@@ -10,24 +10,32 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import jakarta.inject.Inject;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriBuilder;
 import microprofile.poc.hello.HelloWebResource;
 
 @ExtendWith(ArquillianExtension.class)
 public class MicroprofileApplicationIntegrationTest {
-	final String port = System.getProperty("tomee.httpPort");
-	@Inject
-	HelloWebResource helloWebResource;
+	final String serverPort = System.getProperty("tomee.httpPort");
 
 	@Deployment
     public static WebArchive loadPrebuiltWarForDeployment() {
-        WebArchive war = ShrinkWrap.createFromZipFile(WebArchive.class, Paths.get("build/libs/microprofile-poc.war").toFile());
-        System.out.println(war.toString(true));
-        return war;
+		// configures the integration test with the latest built war file. Requires that one is already built.
+        return ShrinkWrap.createFromZipFile(WebArchive.class, Paths.get("build/libs/microprofile-poc.war").toFile());
     }
 
 	@Test
-	public void sayHello_returnsHelloWorld() {
-		Assertions.assertEquals("Hello World", helloWebResource.sayHello());
+	public void api_returnsHelloWorld() {
+		Response response = ClientBuilder.newClient()
+				.target(UriBuilder.fromUri("http://localhost")
+						.port(Integer.valueOf(serverPort))
+						.path("microprofile-poc")
+						.path(HelloWebResource.class))
+				.request(MediaType.TEXT_PLAIN)
+				.get();
+		Assertions.assertEquals(200, response.getStatus());
+		Assertions.assertEquals("Hello World", response.readEntity(String.class));
 	}
 }
