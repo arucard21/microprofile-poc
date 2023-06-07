@@ -8,8 +8,11 @@ spec:
   gateways:
   -  {{ include "chart.fullname" . }}
   http:
+  {{- range .Values.ingress.hosts }}
+  - match:
     route:
     - destination:
         host: {{ .host | quote }}
         port:
-          number: {{ $svcPort }} 
+          number: {{ .Values.service.port }}
+  {{- end }}
