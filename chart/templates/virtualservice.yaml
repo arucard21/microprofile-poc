@@ -14,5 +14,5 @@ spec:
     - destination:
         host: {{ .host | quote }}
         port:
-          number: {{ .Values.service.port }}
+          number: 8080
   {{- end }}
