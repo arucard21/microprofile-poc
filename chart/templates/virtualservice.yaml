@@ -10,6 +10,6 @@ spec:
   http:
     route:
     - destination:
-        host: microprofile-poc.default
+        host: {{ .host | quote }}
         port:
-          number: 8080 
+          number: {{ $svcPort }} 
